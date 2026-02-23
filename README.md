@@ -37,12 +37,16 @@ time window per account. Uses Kafka Streams windowed aggregation.
 **Threshold**: Configurable via `ABBANK_VELOCITY_MAX_TXN` (default: 5)  
 **Alert severity**: CRITICAL
 
+![Fraud Detection](./notification-fraud-alert.png)
+
 ### 2. High-Value Transaction Alert (Stateless Filter)
 Emits an immediate notification for any single transaction above a configurable
 NGN threshold. Includes before/after balance context in the notification body.
 
 **Threshold**: Configurable via `ABBANK_HIGH_VALUE_THRESHOLD_NGN` (default: ₦500,000)  
 **Alert severity**: HIGH (debit) / MEDIUM (credit)
+
+![High Value Alerts](./notification-high-value.png)
 
 ### 3. Running Balance Reconciliation (Persistent KV Store)
 Maintains a per-account running balance in a persistent RocksDB store.
@@ -53,16 +57,9 @@ HIGH-severity alert.
 **State**: Persistent KeyValue store (survives restarts)  
 **Alert severity**: LOW (normal update) / HIGH (discrepancy detected)
 
-### 4. Account Dormancy Detection (Session Window)
-Session windows close when no activity is observed for the inactivity gap
-(default: 30 days). Accounts with only a single event in a session (i.e.
-the opening transaction followed by silence) trigger a dormancy notification.
+![Balance Update](./notification-balance.png)
 
-**Window**: Session with configurable inactivity gap  
-**Alert channel**: EMAIL only  
-**Alert severity**: LOW
-
-### 5. Daily Spend Aggregation (Tumbling Daily Window)
+### 4. Daily Spend Aggregation (Tumbling Daily Window)
 Aggregates debit totals per account in 24-hour tumbling windows.
 Emits an SMS alert when the cumulative daily debit exceeds the threshold.
 
@@ -70,6 +67,17 @@ Emits an SMS alert when the cumulative daily debit exceeds the threshold.
 **Threshold**: Configurable via `ABBANK_DAILY_SPEND_ALERT_NGN` (default: ₦1,000,000)  
 **Alert channel**: SMS  
 **Alert severity**: MEDIUM
+
+![Daily Spend Alerts](./notification-daily-spend.png)
+
+### 5. Account Dormancy Detection (Session Window)
+Session windows close when no activity is observed for the inactivity gap
+(default: 30 days). Accounts with only a single event in a session (i.e.
+the opening transaction followed by silence) trigger a dormancy notification.
+
+**Window**: Session with configurable inactivity gap  
+**Alert channel**: EMAIL only  
+**Alert severity**: LOW
 
 ## Building
 
