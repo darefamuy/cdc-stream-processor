@@ -1,0 +1,45 @@
+services:
+# ──────────────────────────────────────────────────────────────────────────
+# Paste this service block into the main oracle-xstream-cdc-connector-e2e-demo/docker-compose.yml
+# under the `services:` key.
+# ──────────────────────────────────────────────────────────────────────────
+# ── CDC Stream Processor Application ─────────────────────────────────
+  cdc-stream-processor:
+    build:
+      context: ./cdc-stream-processor
+      dockerfile: Dockerfile
+    image: cdc-stream-processor:latest
+    container_name: cdc-stream-processor
+    hostname: cdc-stream-processor
+    networks:
+      - abbank-net
+    ports:
+      - "8080:8080"    # health check / metrics endpoint
+    depends_on:
+      broker:
+        condition: service_healthy
+      schema-registry:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS:   "broker:9092"
+      SCHEMA_REGISTRY_URL:       "http://schema-registry:8081"
+      STREAMS_APPLICATION_ID:    "cdc-stream-processor-v1"
+      STREAMS_NUM_THREADS:       "4"
+      # Business thresholds
+      ABBANK_HIGH_VALUE_THRESHOLD_NGN: "500000"
+      ABBANK_VELOCITY_MAX_TXN:         "5"
+      ABBANK_VELOCITY_WINDOW_SEC:      "60"
+      ABBANK_DORMANCY_DAYS:            "30"
+      ABBANK_DAILY_SPEND_ALERT_NGN:    "1000000"
+    volumes:
+      - streams-state:/var/lib/streams-state
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 45s
+    restart: on-failure:3
+
+# Add to the `volumes:` section at the top of docker-compose.yml:
+#   streams-state:

@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "Key",
+  "namespace": "XEPDB1.BANKDB.CUSTOMERS",
+  "fields": [
+    {
+      "name": "CUSTOMER_ID",
+      "type": "double"
+    }
+  ],
+  "connect.name": "XEPDB1.BANKDB.CUSTOMERS.Key"
+}

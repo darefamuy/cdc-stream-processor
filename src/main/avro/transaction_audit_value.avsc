@@ -1,0 +1,267 @@
+{
+  "type": "record",
+  "name": "Envelope",
+  "namespace": "XEPDB1.BANKDB.TRANSACTION_AUDIT",
+  "fields": [
+    {
+      "name": "before",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Value",
+          "fields": [
+            {
+              "name": "AUDIT_ID",
+              "type": "double"
+            },
+            {
+              "name": "TRANSACTION_ID",
+              "type": "double"
+            },
+            {
+              "name": "AUDIT_ACTION",
+              "type": "string"
+            },
+            {
+              "name": "FLAGGED_REASON",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "REVIEWED_BY",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "REVIEWED_AT",
+              "type": [
+                "null",
+                {
+                  "type": "long",
+                  "connect.version": 1,
+                  "connect.name": "io.debezium.time.MicroTimestamp"
+                }
+              ],
+              "default": null
+            },
+            {
+              "name": "NOTES",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "CREATED_AT",
+              "type": [
+                "null",
+                {
+                  "type": "long",
+                  "connect.version": 1,
+                  "connect.name": "io.debezium.time.MicroTimestamp"
+                }
+              ],
+              "default": null
+            }
+          ],
+          "connect.name": "XEPDB1.BANKDB.TRANSACTION_AUDIT.Value"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "after",
+      "type": [
+        "null",
+        "Value"
+      ],
+      "default": null
+    },
+    {
+      "name": "source",
+      "type": {
+        "type": "record",
+        "name": "Source",
+        "namespace": "io.confluent.connect.oracle.xstream",
+        "fields": [
+          {
+            "name": "version",
+            "type": "string"
+          },
+          {
+            "name": "connector",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "ts_ms",
+            "type": "long"
+          },
+          {
+            "name": "snapshot",
+            "type": [
+              {
+                "type": "string",
+                "connect.version": 1,
+                "connect.parameters": {
+                  "allowed": "true,first,first_in_data_collection,last_in_data_collection,last,false,incremental"
+                },
+                "connect.default": "false",
+                "connect.name": "io.debezium.data.Enum"
+              },
+              "null"
+            ],
+            "default": "false"
+          },
+          {
+            "name": "db",
+            "type": "string"
+          },
+          {
+            "name": "sequence",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "ts_us",
+            "type": [
+              "null",
+              "long"
+            ],
+            "default": null
+          },
+          {
+            "name": "ts_ns",
+            "type": [
+              "null",
+              "long"
+            ],
+            "default": null
+          },
+          {
+            "name": "schema",
+            "type": "string"
+          },
+          {
+            "name": "table",
+            "type": "string"
+          },
+          {
+            "name": "txId",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "scn",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "lcr_position",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "user_name",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "row_id",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          }
+        ],
+        "connect.version": 1,
+        "connect.name": "io.confluent.connect.oracle.xstream.Source"
+      }
+    },
+    {
+      "name": "transaction",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "block",
+          "namespace": "event",
+          "fields": [
+            {
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "name": "total_order",
+              "type": "long"
+            },
+            {
+              "name": "data_collection_order",
+              "type": "long"
+            }
+          ],
+          "connect.version": 1,
+          "connect.name": "event.block"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "op",
+      "type": "string"
+    },
+    {
+      "name": "ts_ms",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    },
+    {
+      "name": "ts_us",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    },
+    {
+      "name": "ts_ns",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    }
+  ],
+  "connect.version": 2,
+  "connect.name": "XEPDB1.BANKDB.TRANSACTION_AUDIT.Envelope"
+}

@@ -1,0 +1,61 @@
+### Gradle ###
+.gradle
+build
+/build/
+/.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Maven ###
+/target/
+/bin/
+!.mvn/wrapper/maven-wrapper.jar
+
+### Logs ###
+/logs/
+
+### Spring Tool Suite ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBean
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### VS code
+.vscode
+
+### NetBeans ###
+/nbproject/private/
+/nbnuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Logs ###
+*.logs
+
+### Mac ###
+*.DS_Store
+.DS_Store
+
+### JKS ###
+.jks
